@@ -14,8 +14,4 @@ public class MockParkingMoneyCharger extends MoneyCharger{
 
     }
 
-    @Override
-    public void chargeByLicense(String licenseName, int money) throws Exception {
-
-    }
 }

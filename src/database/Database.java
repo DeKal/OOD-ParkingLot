@@ -8,15 +8,20 @@ import java.util.List;
 
 import static consts.Const.*;
 
-public class Database extends DBFacade {
+public class Database implements IDatabase {
     private static Database db;
 
     public static Database getInstance() {
-        if (db == null)
+        if (db == null) {
             db = new Database();
+            db.connect();
+        }
         return db;
     }
 
+    private void connect() {
+
+    }
     private Database() {}
 
     public List<Account> getAccounts() {

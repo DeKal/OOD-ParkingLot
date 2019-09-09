@@ -1,17 +1,16 @@
 package factory;
 
 import account.Account;
-import database.DBFacade;
-import database.Database;
+import database.IDatabase;
 import finance.MoneyCharger;
 import finance.ParkingMoneyCharger;
 
 import java.util.List;
 
 public class ChargerFactory {
-    private DBFacade db;
+    private IDatabase db;
 
-    public ChargerFactory(DBFacade db) {
+    public ChargerFactory(IDatabase db) {
         this.db = db;
     }
 

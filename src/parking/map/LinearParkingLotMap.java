@@ -15,6 +15,11 @@ public class LinearParkingLotMap extends ParkingLotMap{
         spotList = new LinkedList<>();
     }
 
+
+    public int capacity() {
+        return spotList.size();
+    }
+
     public ParkingLotMap add(Spot spot) {
         spotList.add(spot);
         return this;
@@ -44,10 +49,5 @@ public class LinearParkingLotMap extends ParkingLotMap{
             }
         }
         throw new NoRegisteredLicenseError();
-    }
-
-    @Override
-    public int capacity() {
-        return spotList.size();
     }
 }

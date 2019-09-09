@@ -7,18 +7,6 @@ import vehicle.Vehicle;
 
 public abstract class Spot {
 
-    public static Spot createBySize(Size size) {
-        switch (size) {
-            case MOTORBIKE:
-                return new MotorbikeSpot();
-            case COMPACT:
-                return new CompactSpot();
-            case LARGE:
-                return new LargeSpot();
-        }
-        return DummySpot.getInstance();
-    }
-
     private Vehicle vehicle = DummyVehicle.getInstance();
 
     public void park(Vehicle vehicle) {
@@ -31,8 +19,10 @@ public abstract class Spot {
     }
 
     protected abstract Size getSpotSize();
-    abstract public boolean isFit(Size vehicleSize);
 
+    public boolean isOccupied() {
+        return !Size.NONE.equals(vehicle.getSize());
+    }
 
     public Vehicle retrieve() {
         Vehicle retrieveVehicle = vehicle;
@@ -44,9 +34,7 @@ public abstract class Spot {
         vehicle = DummyVehicle.getInstance();
     }
 
-    public boolean isOccupied() {
-        return !Size.NONE.equals(vehicle.getSize());
-    }
+    abstract public boolean isFit(Size vehicleSize);
 
     public boolean containsVehicleWithLicense(String licenseName) {
         return vehicle.getLicenseName() != null

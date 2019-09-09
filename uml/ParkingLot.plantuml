@@ -33,7 +33,7 @@ title __PARKINGLOT's Class Diagram__\n
   
 
   namespace database {
-    abstract class database.DBFacade {
+    abstract class database.IDatabase {
     }
   }
 
@@ -159,16 +159,16 @@ title __PARKINGLOT's Class Diagram__\n
   account.payment.CashPayment -up-|> account.payment.Payment
   account.payment.CreditPayment -up-|> account.payment.Payment
 
-  database.Database -up-|> database.DBFacade
+  database.Database -up-|> database.IDatabase
 
 
-  factory.ChargerFactory o-- database.DBFacade : db
+  factory.ChargerFactory o-- database.IDatabase : db
   factory.ChargerFactory --> finance.MoneyCharger : create
 
   factory.ParkingLotFactory o-- factory.ChargerFactory : chargerFactory
   factory.ParkingLotFactory o-- factory.ParkingLotMapFactory : mapFactory
 
-  factory.ParkingLotMapFactory o-- database.DBFacade : db
+  factory.ParkingLotMapFactory o-- database.IDatabase : db
   factory.ParkingLotMapFactory --> parking.map.ParkingLotMap : create
 
   finance.ParkingMoneyCharger -up-|> finance.MoneyCharger

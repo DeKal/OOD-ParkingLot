@@ -11,23 +11,6 @@ class ParkingMoneyChargerTest extends GroovyTestCase{
         charger = new ParkingMoneyCharger()
     }
 
-    void testLoadAccountToCharger() throws Exception{
-        Account acc1 = new Account("UserA", "ABC123", Payment.getPayment(0, 100000))
-        Account acc2 = new Account("UserA", "ABC124", Payment.getPayment(0, 100000))
-
-        charger.loadAccount(acc1)
-        charger.loadAccount(acc2)
-
-        charger.chargeByLicense("ABC123", 5000)
-        charger.chargeByLicense("ABC124", 10000)
-
-        assertEquals(true, acc1.isPayable(95000))
-        assertEquals(true, acc2.isPayable(90000))
-
-        assertEquals(false, acc1.isPayable(100000))
-        assertEquals(false, acc2.isPayable(100000))
-    }
-
     void testAccountNotEnoughMoney() throws Exception {
         shouldFail {
             Account acc1 = new Account("UserA", "ABC123", Payment.getPayment(0, 100000))

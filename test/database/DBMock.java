@@ -7,7 +7,7 @@ import consts.Const;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DBMock extends DBFacade {
+public class DBMock implements IDatabase {
     @Override
     public List<Account> getAccounts() {
         List<Account> accounts = new LinkedList<>();

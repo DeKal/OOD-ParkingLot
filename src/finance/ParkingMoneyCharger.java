@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static consts.Const.*;
 
-public class ParkingMoneyCharger extends MoneyCharger{
+public class ParkingMoneyCharger extends MoneyCharger {
     private Map<String, Account> licenseMap;
 
     public ParkingMoneyCharger() {
@@ -21,31 +21,36 @@ public class ParkingMoneyCharger extends MoneyCharger{
         licenseMap.put(account.getLicenseName(), account);
     }
 
-    public void chargeByLicense(String licenseName, int  money) throws Exception {
+    public void charge(String licenseName, VehicleType type) throws Exception {
         if (licenseMap.containsKey(licenseName)) {
+            int chargedMoney = getChargedMoneyByVehicleType(type);
             Account account = licenseMap.get(licenseName);
-            if (account.isPayable(money)) {
-                account.charge(money);
-            }
-            else {
-                throw new NotPayableException();
-            }
+            chargeByLicense(account, chargedMoney);
         }
         else {
             throw new NoRegisteredLicenseError();
         }
+
     }
 
-    public void charge(String licenseName, VehicleType type) throws Exception {
-       switch (type){
-           case MOTORBIKE:
-               chargeByLicense(licenseName, Const.ChargeMoney.MOTORBIKE);
-               break;
-           case CAR:
-               chargeByLicense(licenseName, Const.ChargeMoney.CAR);
-               break;
-           case BUS:
-               chargeByLicense(licenseName, Const.ChargeMoney.BUS);
-       }
+    private int getChargedMoneyByVehicleType(VehicleType type) {
+        switch (type){
+            case MOTORBIKE:
+                return ChargeMoney.MOTORBIKE;
+            case CAR:
+                return ChargeMoney.CAR;
+            case BUS:
+                return ChargeMoney.BUS;
+        }
+        return 0;
+    }
+
+    private void chargeByLicense(Account account, int  money) throws Exception {
+        if (account.isPayable(money)) {
+            account.charge(money);
+        }
+        else {
+            throw new NotPayableException();
+        }
     }
 }
